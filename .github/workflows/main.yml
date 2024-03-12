@@ -21,5 +21,6 @@ jobs:
 
     - name: Deploy to AWS
       run: |
+        sudo chmod 0755 .ssh/
         ssh -o StrictHostKeyChecking=no -i $HOME/.ssh/ ubuntu@3.144.222.152 "
         sudo mkdir /var/www/html/folder "
