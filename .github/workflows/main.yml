@@ -25,4 +25,4 @@ jobs:
         cd /var/www/html/test
         sudo git add .
         sudo git commit -m "servercommit"
-        sudo git pull origin master 
+        sudo git pull origin master "
