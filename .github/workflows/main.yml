@@ -22,4 +22,7 @@ jobs:
     - name: Deploy to AWS
       run: |
         ssh -o StrictHostKeyChecking=no -i $HOME/.ssh/ ubuntu@3.144.222.152 "
-        sudo rm -rf /var/www/html/folder "
+        cd /var/www/html 
+        sudo git add .
+        sudo git commit -m
+        sudo git pull origin master"
