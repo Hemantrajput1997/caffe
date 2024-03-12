@@ -1,36 +1,25 @@
-name: Push-to-EC2
+name: Deploy to AWS
 
-# Trigger deployment only on push to main branch
 on:
   push:
     branches:
-      - master
+      - main  # Change this to your main branch name
 
 jobs:
   deploy:
-    name: Deploy to EC2 on master branch push
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout the files
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Deploy to Server 1
-        uses: easingthemes/ssh-deploy@main
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
-          REMOTE_HOST: ${{ secrets.HOST_DNS }}
-          REMOTE_USER: ${{ secrets.USERNAME }}
-          TARGET: ${{ secrets.TARGET_DIR }}
+    - name: Set up SSH key
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
+        # You'll need to add the corresponding public key to your AWS server's authorized_keys files
 
-      - name: Executing remote ssh commands using ssh key
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST_DNS }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            sudo apt-get -y update
-            cd home
-            sudo mv * /var/www/html
-            echo hello
+    - name: Deploy to AWS
+      run: |
+        ssh -o StrictHostKeyChecking=no -i $HOME/.ssh/ ubuntu@3.144.222.152 "
+        sudo mkdir /var/www/html/folder 
