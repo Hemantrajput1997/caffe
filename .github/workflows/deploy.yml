@@ -22,5 +22,5 @@ jobs:
     - name: Deploy to AWS
       run: |
         ssh -o StrictHostKeyChecking=no -i $HOME/.ssh/ ubuntu@3.144.222.152 "
-        cd /var/www/html/test
-        mkdir folder 1 
+        cd /var/www/html
+        sudo mkdir folder 1 
